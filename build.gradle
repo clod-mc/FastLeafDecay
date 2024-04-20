@@ -1,5 +1,7 @@
 plugins {
     id "java-library"
+    id 'com.diffplug.spotless' version '6.25.0'
+    id 'checkstyle'
 }
 
 repositories {
@@ -33,5 +35,18 @@ processResources {
     filteringCharset "UTF-8"
     filesMatching("plugin.yml") {
         expand props
+    }
+}
+
+spotless {
+    format 'misc', {
+        target '*.gradle', '.gitattributes', '.gitignore'
+        trimTrailingWhitespace()
+        indentWithSpaces(4)
+        endWithNewline()
+    }
+    java {
+        googleJavaFormat('1.19.2').reflowLongStrings().skipJavadocFormatting()
+        formatAnnotations()
     }
 }
