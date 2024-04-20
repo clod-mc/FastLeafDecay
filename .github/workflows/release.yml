@@ -17,8 +17,8 @@ jobs:
 
       - name: build
         run: |
-          rm -f target
-          mvn package
+          rm -f build/libs/*.jar
+          ./gradlew build
 
       - name: tag
         id: tag
@@ -41,4 +41,4 @@ jobs:
             --repo="$GITHUB_REPOSITORY" \
             --generate-notes \
             --title="FastLeafDecay-${{ steps.tag.outputs.ver }}" \
-            README.md target/FastLeafDecay.jar
+            README.md build/libs/*.jar

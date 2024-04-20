@@ -1,0 +1,37 @@
+plugins {
+    id "java-library"
+}
+
+repositories {
+    mavenCentral()
+    maven { url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+}
+
+dependencies {
+    api libs.org.spigotmc.spigot.api
+}
+
+group = "com.cavetale.fastleafdecay"
+version = "./src/build/version.py".execute().text.trim()
+description = "FastLeafDecay"
+java.sourceCompatibility = JavaVersion.VERSION_17
+base {
+    archivesName = description
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = "UTF-8"
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset "UTF-8"
+    filesMatching("plugin.yml") {
+        expand props
+    }
+}
