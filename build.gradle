@@ -10,22 +10,17 @@ repositories {
 }
 
 dependencies {
-    api libs.org.spigotmc.spigot.api
+    compileOnly "org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT"
 }
 
 group = "com.cavetale.fastleafdecay"
 version = "./src/build/version.py".execute().text.trim()
-description = "FastLeafDecay"
 java.sourceCompatibility = JavaVersion.VERSION_17
 base {
     archivesName = description
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-tasks.withType(Javadoc) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = "UTF-8"
 }
 
